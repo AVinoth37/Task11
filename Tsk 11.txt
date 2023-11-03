@@ -1,0 +1,179 @@
+﻿
+
+Task Description:
+Java Exceptions and Error Handling
+1. What are the four access modifiers available in Java and what is their significance in terms of class, method, and variable accessibility?
+
+Ans: Public, private, protected, default
+
+2. What is the difference between Exception and error?
+
+Ans: Both Exception and error are subclasses of java.lang package. Exception means deliberate act of omission, error means an action that is inaccurate or incorrect. Exception occurs at compile time or run time. Error occurs at runtime.
+
+3. What is the difference between checked Exception and unchecked Exception?
+
+Ans: Checked exceptions are the exceptions that are checked at the compile time. Unchecked exceptions are the exceptions that are not checked at the compile time. In Java, exceptions under Error and RuntimeException classes are unchecked exceptions, everything else under throwable is checked.
+
+4. Write a Java program that reads user input for two integers and performs division. Handle the exception that is thrown when the second number is zero, and display an error message to the user.
+
+Program: 
+import java.util.Scanner;
+
+public class DivisionException {
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Enter two integers: ");
+		int num1=sc.nextInt();
+		int num2=sc.nextInt();
+		
+		try {
+			int result = num1/num2;
+			System.out.println("The result is: "+result);
+		}catch(ArithmeticException e){  		// ArithmeticException is used to handle the exception
+			
+			System.out.println("Error: Division by zero is not allowed.");
+			
+		}
+
+	}
+
+}
+
+
+
+Output:
+Enter two integers: 
+10
+0
+Error: Division by zero is not allowed.
+
+
+
+5. Write the code of ArrayIndexOutOfBoundsException & StringIndexOutOfBoundsException?
+
+Program:
+//importing required package
+import java.io.*;
+import java.lang.*;
+import java.util.*;
+
+public class Example {
+
+	public static void main(String[] args) {
+		try {
+			int[] array = new int[5];
+			System.out.println(array[5]); 
+			//accessing an index greater than length of array
+		}catch(ArrayIndexOutOfBoundsException e) {
+			System.out.println("Error: Array index is out of bounds.");
+			}
+		try {
+			String str ="Vinoth";
+			System.out.println(str.charAt(6));
+			//accessing index greater than string length
+		}catch(StringIndexOutOfBoundsException e) {
+			System.out.println("Error: String index is out of bounds.");
+		}
+	}
+
+}
+
+Output:
+Error: Array index is out of bounds.
+Error: String index is out of bounds.
+
+
+6. You are building a login system for a website using Java. If the user enters an incorrect password, you want to display a message informing them of the error. How would you use exception handling to handle this situation?
+
+Program:	
+
+public class Loginsystem {
+	//the correct password is stored in private 
+	private String correctPassword="password321";
+	
+	public void login(String enteredPassword) {
+		try {
+			if(!enteredPassword.equals(correctPassword)) {
+				throw new IllegalArgumentException("Incorrect password.");
+				
+			}
+			System.out.println("Login successful.");
+		}catch(IllegalArgumentException e) {
+			System.out.println(e.getMessage());
+		}
+	}
+	
+	public static void main(String[] args) {
+		Loginsystem loginSystem = new Loginsystem();
+		loginSystem.login("password123");//this will throw exception
+
+	}
+
+}
+
+
+Output:
+Incorrect password.
+
+
+7. Create a custom exception in Java called "InvalidAgeException" that is thrown when the user enters an age less than 18. Implement exception handling in a Java program to catch the "InvalidAgeException" and display an error message.
+
+Program:
+//Custom exception
+public class InvalidAgeException extends Exception {
+	public InvalidAgeException(String message) {
+		super(message);
+	}
+}
+	
+//Main class
+public class ExceptionMain {
+		public static void main(String[] args) {
+			try {
+				checkAge(15);
+			}catch(InvalidAgeException e) {
+				System.out.println(e.getMessage());
+			}
+				
+			}
+		public static void checkAge(int age) throws InvalidAgeException{
+			if(age<18) {
+				throw new InvalidAgeException("Error: Age is less than 18.");
+			}else {
+				System.out.println("Age is valid.");
+			}
+		}
+
+	}
+
+Output:
+Error: Age is less than 18.
+
+
+8. Implement exception handling in a Java program that reads data from a file. If the file does not exist, throw a "FileNotFoundException" and display an error message to the user.
+
+Program:
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
+public class FileSearch {
+
+	public static void main(String[] args) {
+		try {
+			File file= new File("filename.txt");//entering file name
+			Scanner sc = new Scanner(file);
+			while(sc.hasNextLine()) {
+				String line= sc.nextLine();
+				System.out.println(line);
+			}
+		}catch(FileNotFoundException e) {
+			System.out.println("Error: File not found.");
+		}
+	}
+
+}
+
+output:
+Error: File not found.
